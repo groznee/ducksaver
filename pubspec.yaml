@@ -1,0 +1,36 @@
+name: ducksaver
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+
+dependencies:
+  flame: ^1.6.0
+  flame_audio: ^1.4.0
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.2.19
+  video_player: ^2.6.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  icons_launcher: ^2.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/audio/
+    - assets/video/
+
+icons_launcher:
+  image_path: 'assets/images/duck (2).png'
+  platforms:
+    android:
+     enable: true
+    ios:
+     enable: true
