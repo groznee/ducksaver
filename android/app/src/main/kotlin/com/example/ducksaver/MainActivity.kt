@@ -1,4 +1,4 @@
-package com.example.ducksaver
+package com.groznee.ducksaver
 
 import io.flutter.embedding.android.FlutterActivity
 
