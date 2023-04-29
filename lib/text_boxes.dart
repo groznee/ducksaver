@@ -48,7 +48,6 @@ class BottomRightTextBox extends TextBoxComponent
   void render(Canvas c) {
     final rect = Rect.fromLTWH(0, 0, width, height);
     c.drawRect(rect, Paint()..color = const Color.fromRGBO(191, 54, 12, 1));
-    //weird hack to update the text, otherwise it updates after a random time
     super.render(c);
   }
 }
