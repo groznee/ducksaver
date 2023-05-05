@@ -3,11 +3,14 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/experimental.dart';
+
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 import 'ducksprite.dart';
 import 'text_boxes.dart';
 import 'malletsprite.dart';
+import 'parallax.dart';
 
 class MyGame extends FlameGame
     with HasTappableComponents, HasCollisionDetection, SingleGameInstance {
@@ -25,6 +28,7 @@ class MyGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
+    add(MyParallaxComponent());
     add(ScreenHitbox());
     add(DuckSprite(size / 2));
 
