@@ -1,6 +1,6 @@
 # ducksaver
 
-This is a simple Flame game in Flutter made for educational purposes. Graphics produced by AI image generator. Try to hit 100 ducks!
+This is a simple Flame game in Flutter I made for educational purposes. Graphics produced by AI image generator. Try to hit 100 ducks!
 
 ## [try on Google Play](https://play.google.com/store/apps/details?id=com.groznee.ducksaver)
 
