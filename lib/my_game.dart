@@ -16,6 +16,7 @@ class MyGame extends FlameGame
     with HasTappableComponents, HasCollisionDetection, SingleGameInstance {
   //going to use this random object to get random ints and doubles
   final random = Random();
+  MyParallaxComponent myparallax = MyParallaxComponent();
   int duckHits = 0; //ducks user has hit
   int maxDucks = 10; //max ducks allowed on screen before game over
   int ducksExisting = 1; //we start with one duck
@@ -28,7 +29,7 @@ class MyGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    add(MyParallaxComponent());
+    add(myparallax);
     add(ScreenHitbox());
     add(DuckSprite(size / 2));
 
@@ -66,11 +67,13 @@ class MyGame extends FlameGame
     if (_lastDuckTime >= (_duckInterval / (1 + duckHits / 90))) {
       for (int i = 0;
           i < (1 + random.nextDouble() + duckHits / 60).round();
-          // i < 1;
           i++) {
         addRandomDuck();
       }
       _lastDuckTime = 0;
+      //speed up parralax based on time passed, layers[1] is front clouds
+      myparallax.parallax?.layers[1].velocityMultiplier
+          .multiply(Vector2.all(1.125));
     }
 
     // End game if there max ducks or more, display EndGame overlay
@@ -84,6 +87,10 @@ class MyGame extends FlameGame
     ducksExisting = 0;
     duckHits = 0;
     removeAll(children.whereType<DuckSprite>());
+    //reverses the parralax movement direction on each new game
+    //set velocityMultiplier to same value as velocityMultiplierDelta in parallax.dart
+    myparallax.parallax?.layers[1].velocityMultiplier.setValues(1.5, 0);
+    myparallax.parallax?.baseVelocity.negate();
     resumeEngine();
     addRandomDuck();
   }
@@ -102,11 +109,11 @@ class MyGame extends FlameGame
   // this part takes care of adding random ducks depending on score achieved
 
   void addRandomDuck() {
-    // while overlays are active keep the ducks to third of maxDucks, for fun
+    // while overlays are active keep the ducks to third of maxDucks
     if (overlays.activeOverlays.isNotEmpty && ducksExisting >= maxDucks / 3) {
       return;
     }
-    // should never add more ducks if already more than maxDucks on screen...
+    // should never add more ducks if already more than maxDucks on screen
     if (ducksExisting >= maxDucks) return;
 
     final x = random.nextDouble() * size.x;

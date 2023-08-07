@@ -30,8 +30,8 @@ class MyParallaxComponent extends ParallaxComponent<MyGame> {
         ParallaxImageData(paraFronts[random.nextInt(paraFronts.length)]),
       ],
       repeat: ImageRepeat.repeatX,
-      baseVelocity: Vector2(12, 0),
-      velocityMultiplierDelta: Vector2(3, 0),
+      baseVelocity: Vector2(5, 0),
+      velocityMultiplierDelta: Vector2(1.5, 0),
       fill: LayerFill.height,
     );
   }
