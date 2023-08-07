@@ -8,9 +8,7 @@ This is a simple Flame game in Flutter I made for educational purposes. Graphics
 
 <img src="docs/screen_4.webp" alt="Screenshot 4" width="45%" />
 
-<img src="docs/screen_1.webp" alt="Screenshot 1" width="15%" />
-<img src="docs/screen_2.webp" alt="Screenshot 2" width="15%" />
-<img src="docs/screen_3.webp" alt="Screenshot 3" width="15%" />
+<img src="docs/screen_1.webp" alt="Screenshot 1" width="15%" /> <img src="docs/screen_2.webp" alt="Screenshot 2" width="15%" /> <img src="docs/screen_3.webp" alt="Screenshot 3" width="15%" />
 
 
 
