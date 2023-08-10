@@ -73,7 +73,7 @@ class MyGame extends FlameGame
       _lastDuckTime = 0;
       //speed up parralax based on time passed, layers[1] is front clouds
       myparallax.parallax?.layers[1].velocityMultiplier
-          .multiply(Vector2.all(1.125));
+          .multiply(Vector2.all(1.1));
     }
 
     // End game if there max ducks or more, display EndGame overlay

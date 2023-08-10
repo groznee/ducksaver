@@ -16,9 +16,9 @@ import 'my_game.dart';
 
 class DuckSprite extends SpriteComponent
     with TapCallbacks, HasGameRef<MyGame>, CollisionCallbacks {
-  double duckRotationSpeed = 0.95;
+  double duckRotationSpeed = 0.75;
   double duckTranslationSpeed = 200;
-  double duckSize = 285.0;
+  double duckSize = 375.0;
   Random random = Random();
   double duckeffectsTime = 0.4;
 

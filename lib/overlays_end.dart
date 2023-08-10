@@ -26,8 +26,9 @@ class EndGame extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(10.0),
           //so, when duckTreshold is reached we should have a bigger container
+          //bugged for Xperia like tall screens...
           height: (game.duckHits >= duckTreshold)
-              ? game.size.y / 1.75
+              ? game.size.y / 1.5
               : game.size.y / 2,
           width: game.size.x / 1.5,
           decoration: const BoxDecoration(

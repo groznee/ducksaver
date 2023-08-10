@@ -31,6 +31,7 @@ class MainMenu extends StatelessWidget {
             children: [
               const Text(
                 'Duck Toucher',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     color: lighterColour,
                     fontSize: 38,
