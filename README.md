@@ -1,6 +1,6 @@
 # ducksaver
 
-This is a simple Flame game in Flutter I made for self-geducational purposes. Graphics produced by AI image generator. Try to hit 100 ducks!
+This is a simple whack-a-mole type game developed in Flutter using the Flame engine, made for self-educational purposes. Try to hit 100 ducks!
 
 ## [try on Google Play](https://play.google.com/store/apps/details?id=com.groznee.ducksaver)
 
