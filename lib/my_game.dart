@@ -20,10 +20,10 @@ class MyGame extends FlameGame
   MyParallaxComponent myparallax = MyParallaxComponent();
   int duckHits = 0; //ducks user has hit
   int maxDucks = 10; //max ducks allowed on screen before game over
-  int ducksExisting = 1; //we start with one duck
+  int currentDuckCount = 1; //we start with one duck
   bool duckHitBoxDrawn = false; //draws the polygonal hitbox, needs hot restart
   double _lastDuckTime = 0; //accumulator tracking time since last ducks drawn
-  final double _duckInterval = 2.15; // create a new duck every x seconds
+  final double baseDuckSpawnInterval = 1.75; // new duck every x seconds
   BottomRightTextBox counterplaypauseBox = BottomRightTextBox("X");
   // BottomRightTextBox showhitboxBox = BottomRightTextBox("X"); //debugging
   // BottomRightTextBox howmanyducksHitBox = BottomRightTextBox("X"); //debugging
@@ -77,18 +77,37 @@ class MyGame extends FlameGame
     super.update(dt);
 
     //get the number of ducks each frame
-    ducksExisting = children.whereType<DuckSprite>().length;
+    currentDuckCount = children.whereType<DuckSprite>().length;
 
     // Check if it's time to create new ducks, according to variable interval
     // and add a random number of ducks (mostly 1 or 2), depending on the score
     _lastDuckTime += dt;
-    if (_lastDuckTime >= (_duckInterval / (1 + duckHits / 60))) {
+    // if (_lastDuckTime >= (baseDuckSpawnInterval / (1 + duckHits / 60))) {
+    //   for (int i = 0;
+    //       i < (1 + random.nextDouble() * 1.5 + duckHits / 90).round();
+    //       i++) {
+    //     addRandomDuck();
+    //   }
+    //   _lastDuckTime = 0;
+
+    double duckSpawnMultiplier = 1 + (duckHits / 75);
+    double randomOffset = random.nextDouble() * 0.25;
+    if (_lastDuckTime >=
+        (baseDuckSpawnInterval / duckSpawnMultiplier) - randomOffset) {
       for (int i = 0;
-          i < (1 + random.nextDouble() * 1.5 + duckHits / 90).round();
+          i < (random.nextDouble() * 1.5 + duckHits / 75).round();
           i++) {
         addRandomDuck();
       }
       _lastDuckTime = 0;
+
+      // ... (Optional burst logic)
+      if (random.nextDouble() < 0.25) {
+        // 25 % chance of burst
+        for (int i = 0; i < 1 + random.nextInt(3); i++) {
+          addRandomDuck();
+        }
+      }
 
       //speed up parralax as well, if no overlays, layers[1] is front clouds
       if (!overlays.activeOverlays.isNotEmpty) {
@@ -98,14 +117,14 @@ class MyGame extends FlameGame
     }
 
     // End game if there max ducks or more, display EndGame overlay
-    if (ducksExisting >= maxDucks) {
+    if (currentDuckCount >= maxDucks) {
       pauseEngine();
       overlays.add('EndGame');
     }
   }
 
   void resetGame() {
-    ducksExisting = 0;
+    currentDuckCount = 0;
     duckHits = 0;
     removeAll(children.whereType<DuckSprite>());
     //reverses the parralax movement direction on each new game
@@ -131,11 +150,12 @@ class MyGame extends FlameGame
 
   void addRandomDuck() {
     // while overlays are active keep the ducks to third of maxDucks
-    if (overlays.activeOverlays.isNotEmpty && ducksExisting >= maxDucks / 3) {
+    if (overlays.activeOverlays.isNotEmpty &&
+        currentDuckCount >= maxDucks / 3) {
       return;
     }
     // should never add more ducks if already more than maxDucks on screen
-    if (ducksExisting >= maxDucks) return;
+    if (currentDuckCount >= maxDucks) return;
 
     final x = random.nextDouble() * size.x;
     final y = random.nextDouble() * size.y;
