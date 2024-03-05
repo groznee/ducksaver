@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/experimental.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/particles.dart';
@@ -16,7 +16,7 @@ import 'my_game.dart';
 
 class DuckSprite extends SpriteComponent
     with TapCallbacks, HasGameRef<MyGame>, CollisionCallbacks {
-  double duckRotationSpeed = 0.75;
+  double duckRotationSpeed = 0.90;
   double duckTranslationSpeed = 200;
   double duckSize = 375.0;
   Random random = Random();
@@ -83,6 +83,8 @@ class DuckSprite extends SpriteComponent
 
   @override
   void onTapDown(TapDownEvent event) {
+    event.continuePropagation = true;
+
     //55 offset because hitbox is offset on X ordinate by 55
     //to be honest all of this is a bit of a hack, but it works
     if (duckhitbox.containsLocalPoint(event.localPosition - Vector2(55, 0))) {
@@ -186,7 +188,7 @@ class DuckSprite extends SpriteComponent
       Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is ScreenHitbox) {
       movementVector.negate();
-      FlameAudio.play('quack_bounce.mp3', volume: 0.25);
+      FlameAudio.play('quack_bounce.mp3', volume: 0.5);
     }
     super.onCollisionStart(intersectionPoints, other);
     // flipHorizontally();

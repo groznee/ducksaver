@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flame/effects.dart';
-import 'package:flame/game.dart';
 import 'package:flame/components.dart';
 
 import 'package:flame_audio/flame_audio.dart';
@@ -16,7 +15,8 @@ class MalletSprite extends SpriteComponent with HasGameRef<MyGame> {
   bool isHit; // parameter is required, no default value needed
   double malletEffectsTime = 0.15;
   Curve malletCurve = Curves.easeOutBack;
-  double malletAngle = Transform2D.tau / 4; //default mallet swing is 90°
+  double malletAngle = pi / 2; //default mallet swing is 90°
+  // double malletAngle = 1.571; //90° in radians
   var malletsound = 'mallet_2.mp3';
 
   List<String> pngAssets = [

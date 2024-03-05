@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:flame/experimental.dart';
+import 'package:flame/events.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 
@@ -45,10 +45,11 @@ class BottomRightTextBox extends TextBoxComponent
   }
 
   @override
-  void render(Canvas c) {
+  void render(Canvas canvas) {
     final rect = Rect.fromLTWH(0, 0, width, height);
-    c.drawRect(rect, Paint()..color = const Color.fromRGBO(191, 54, 12, 1));
-    super.render(c);
+    canvas.drawRect(
+        rect, Paint()..color = const Color.fromRGBO(191, 54, 12, 1));
+    super.render(canvas);
   }
 }
 

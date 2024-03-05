@@ -64,7 +64,7 @@ class EndGame extends StatelessWidget {
                   child: const Text(
                     'Play again',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 26,
                       color: darkerColor,
                     ),
                   ),

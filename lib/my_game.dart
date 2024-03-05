@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame/experimental.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'malletsprite.dart';
 import 'parallax.dart';
 
 class MyGame extends FlameGame
-    with HasTappableComponents, HasCollisionDetection, SingleGameInstance {
+    with TapCallbacks, SingleGameInstance, HasCollisionDetection {
   //going to use this random object to get random ints and doubles
   final random = Random();
   MyParallaxComponent myparallax = MyParallaxComponent();
@@ -37,6 +38,23 @@ class MyGame extends FlameGame
     counterplaypauseBox = BottomRightTextBox("?", size: Vector2(45, 55))
       ..position = Vector2(size.x - 45, size.y - 55);
     add(counterplaypauseBox);
+
+    //preloads the audio files, recheck later how to use AudioPool
+    await FlameAudio.audioCache.loadAll([
+      'mallet_1.mp3',
+      'mallet_2.mp3',
+      'mallet_3.mp3',
+      'mallet_4.mp3',
+      'mallet_whoosh.mp3',
+      'quack_1.mp3',
+      'quack_2.mp3',
+      'quack_3.mp3',
+      'quack_4.mp3',
+      'quack_5.mp3',
+      'quack_6.mp3',
+      'quack_7.mp3',
+      'quack_bounce.mp3',
+    ]);
 
     // boxes used for debugging and learning  purposes, not used in final game
     // showhitboxBox = DisplayHitboxesBox("HITBOX", size: Vector2(70, 55))
@@ -64,16 +82,19 @@ class MyGame extends FlameGame
     // Check if it's time to create new ducks, according to variable interval
     // and add a random number of ducks (mostly 1 or 2), depending on the score
     _lastDuckTime += dt;
-    if (_lastDuckTime >= (_duckInterval / (1 + duckHits / 90))) {
+    if (_lastDuckTime >= (_duckInterval / (1 + duckHits / 60))) {
       for (int i = 0;
-          i < (1 + random.nextDouble() + duckHits / 60).round();
+          i < (1 + random.nextDouble() * 1.5 + duckHits / 90).round();
           i++) {
         addRandomDuck();
       }
       _lastDuckTime = 0;
-      //speed up parralax based on time passed, layers[1] is front clouds
-      myparallax.parallax?.layers[1].velocityMultiplier
-          .multiply(Vector2.all(1.1));
+
+      //speed up parralax as well, if no overlays, layers[1] is front clouds
+      if (!overlays.activeOverlays.isNotEmpty) {
+        myparallax.parallax?.layers[1].velocityMultiplier
+            .multiply(Vector2.all(1.1));
+      }
     }
 
     // End game if there max ducks or more, display EndGame overlay
@@ -119,8 +140,8 @@ class MyGame extends FlameGame
     final x = random.nextDouble() * size.x;
     final y = random.nextDouble() * size.y;
     add(DuckSprite(Vector2(x, y))
-      ..movementVector *= (1 + duckHits / 60)
-      ..duckRotationSpeed *= (1 + duckHits / 75)
-      ..size /= (1 + duckHits / 60));
+      ..movementVector *= (1 + duckHits / 90)
+      ..duckRotationSpeed *= (1 + duckHits / 60)
+      ..size /= (1 + duckHits / 90));
   }
 }

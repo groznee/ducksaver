@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 import 'my_game.dart';
 
-class MyParallaxComponent extends ParallaxComponent<MyGame> {
+class MyParallaxComponent extends ParallaxComponent<MyGame>
+    with HasGameRef<MyGame> {
   List<String> paraBacks = [
     'parallax b (1).png',
     'parallax b (2).png',
